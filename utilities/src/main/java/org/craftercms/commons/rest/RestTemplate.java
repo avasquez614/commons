@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2014 Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@ package org.craftercms.commons.rest;
 import java.util.List;
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 
@@ -52,6 +53,7 @@ public class RestTemplate extends org.springframework.web.client.RestTemplate {
         setErrorHandler(new HttpMessageConvertingResponseErrorHandler());
     }
 
+    @Required
     public void setErrorResponseType(Class<?> errorResponseType) {
         this.errorResponseType = errorResponseType;
     }
@@ -65,7 +67,7 @@ public class RestTemplate extends org.springframework.web.client.RestTemplate {
             if (errorHandler.getMessageConverters() == null) {
                 errorHandler.setMessageConverters(getMessageConverters());
             }
-            if (errorHandler.getResponseType() == null && errorResponseType != null) {
+            if (errorHandler.getResponseType() == null) {
                 errorHandler.setResponseType(errorResponseType);
             }
         }

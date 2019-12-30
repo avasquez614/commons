@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2017 Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@ package org.craftercms.commons.validation.validators.impl;
 
 public class SecurePathValidator extends StringValidator {
 
-    public static final String[] DEFAULT_BLACKLISTED_REGEXES = {"^[^:\\/]+:", "^(\\.+|~)$", "^(\\.+|~)[\\/]", "[\\/](\\.+|~)$",
-        "[\\/](\\.+|~)[\\/]"};
+    public static final String[] DEFAULT_BLACKLISTED_REGEXES =
+            {"^[^:\\/]+:", "^(\\.+|~)$", "^(\\.+|~)[\\/]", "[\\/](\\.+|~)$", "[\\/](\\.+|~)[\\/]"};
 
     public SecurePathValidator(String targetKey) {
         super(targetKey);

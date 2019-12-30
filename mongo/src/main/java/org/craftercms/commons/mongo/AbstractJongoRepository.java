@@ -1,18 +1,18 @@
 /*
- * Copyright (C) 2007-${year} Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package org.craftercms.commons.mongo;
@@ -62,6 +62,7 @@ import org.springframework.beans.factory.annotation.Required;
  *
  * @author Carlos Ortiz.
  */
+@SuppressWarnings("unchecked") // cortiz, OK no better way to do it.
 public abstract class AbstractJongoRepository<T> implements CrudRepository<T> {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractJongoRepository.class);
@@ -72,7 +73,6 @@ public abstract class AbstractJongoRepository<T> implements CrudRepository<T> {
     protected JongoQueries queries;
     protected GridFS gridfs;
 
-    @SuppressWarnings("uncheck") // cortiz, OK no better way to do it.
     public void init() throws Exception {
         //Thru pure magic get parameter Class .
         this.clazz = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];

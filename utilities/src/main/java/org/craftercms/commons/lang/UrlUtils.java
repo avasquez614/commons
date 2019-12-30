@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2017 Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,10 @@ import org.apache.commons.lang3.StringUtils;
  * @author avasquez
  */
 public class UrlUtils {
+
+    public static final String RANGE_HEADER_NAME = "Range";
+    public static final String RANGE_HEADER_FORMAT = "bytes=%s-%s";
+    public static final String RANGE_NO_END_HEADER_FORMAT = "bytes=%s-";
 
     private UrlUtils() {
     }

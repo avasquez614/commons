@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2016 Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,16 @@ package org.craftercms.commons.converters;
  * @author avasquez
  */
 public interface Converter<S, T> {
+
+    /**
+     * Returns the class of the objects this converter converts from.
+     */
+    Class<?> getSourceClass();
+
+    /**
+     * Returns the class of the objects this converter converts to.
+     */
+    Class<?> getTargetClass();
 
     /**
      * Converts the source object from S type to T type.

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2016 Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@ import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.configuration2.Configuration;
 import org.springframework.core.env.EnumerablePropertySource;
 
+import java.util.List;
+
 /**
  * Implementation of {@link EnumerablePropertySource} where a source is an Apache Commons Configuration 2 {@link Configuration}.
  *
@@ -38,7 +40,15 @@ public class ApacheCommonsConfiguration2PropertySource extends EnumerablePropert
 
     @Override
     public Object getProperty(String name) {
-        return source.getProperty(name);
+        Object value = source.getProperty(name);
+        // Call the appropriate getters to resolve ${placeholder}s
+        if (value instanceof String) {
+            return source.getString(name);
+        } else if (value instanceof List) {
+            return source.getList(name);
+        } else {
+            return value;
+        }
     }
 
 }

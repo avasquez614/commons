@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2014 Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@ package org.craftercms.commons.security.permissions;
 
 /**
  * Represents a permission that allows or denies a subject (a user, an application, etc.) the execution of an action
- * or set of actions on an object.
+ * or set of actions on a resource.
  *
  * @author avasquez
  */

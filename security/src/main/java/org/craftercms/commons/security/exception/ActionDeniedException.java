@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2014 Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,8 +30,8 @@ public class ActionDeniedException extends PermissionException {
         super(GLOBAL_ACTION_DENIED_KEY, action);
     }
 
-    public ActionDeniedException(String action, Object securedObject) {
-        super(ACTION_DENIED_KEY, action, securedObject);
+    public ActionDeniedException(String action, Object resource) {
+        super(ACTION_DENIED_KEY, action, resource);
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2017 Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,16 @@ import org.craftercms.commons.converters.Converter;
  * @author avasquez
  */
 public class StringToFloatConverter implements Converter<String, Float> {
+
+    @Override
+    public Class<?> getSourceClass() {
+        return String.class;
+    }
+
+    @Override
+    public Class<?> getTargetClass() {
+        return Float.class;
+    }
 
     @Override
     public Float convert(String source) {

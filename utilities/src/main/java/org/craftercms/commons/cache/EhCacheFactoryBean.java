@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2014 Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
 package org.craftercms.commons.cache;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -44,6 +45,11 @@ public class EhCacheFactoryBean implements FactoryBean<Cache> {
         cache = new Cache(configuration);
 
         CacheManager.getInstance().addCache(cache);
+    }
+
+    @PreDestroy
+    public void destroy() {
+        CacheManager.getInstance().shutdown();
     }
 
     @Override

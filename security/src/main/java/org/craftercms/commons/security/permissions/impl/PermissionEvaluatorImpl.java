@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2014 Crafter Software Corporation.
+ * Copyright (C) 2007-2019 Crafter Software Corporation. All Rights Reserved.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,13 +23,14 @@ import org.craftercms.commons.security.permissions.Permission;
 import org.craftercms.commons.security.permissions.PermissionEvaluator;
 import org.craftercms.commons.security.permissions.PermissionResolver;
 import org.craftercms.commons.security.permissions.SubjectResolver;
+import org.springframework.beans.factory.annotation.Required;
 
 /**
  * Default implementation of {@link org.craftercms.commons.security.permissions.PermissionEvaluator}
  *
  * @author avasquez
  */
-public class PermissionEvaluatorImpl<S, O> implements PermissionEvaluator<S, O> {
+public class PermissionEvaluatorImpl<S, R> implements PermissionEvaluator<S, R> {
 
     private static final I10nLogger logger = new I10nLogger(PermissionEvaluatorImpl.class, "crafter.security.messages.logging");
 
@@ -38,42 +39,44 @@ public class PermissionEvaluatorImpl<S, O> implements PermissionEvaluator<S, O> 
     private static final String LOG_KEY_EVALUATING_PERM = "security.permission.evaluatingPermission";
 
     protected SubjectResolver<S> subjectResolver;
-    protected PermissionResolver<S, O> permissionResolver;
+    protected PermissionResolver<S, R> permissionResolver;
 
+    @Required
     public void setSubjectResolver(SubjectResolver<S> subjectResolver) {
         this.subjectResolver = subjectResolver;
     }
 
-    public void setPermissionResolver(PermissionResolver<S, O> permissionResolver) {
+    @Required
+    public void setPermissionResolver(PermissionResolver<S, R> permissionResolver) {
         this.permissionResolver = permissionResolver;
     }
 
     @Override
-    public boolean isAllowed(O object, String action) throws PermissionException {
+    public boolean isAllowed(R resource, String action) throws PermissionException {
         S subject = subjectResolver.getCurrentSubject();
         if (subject == null) {
             throw new SubjectNotFoundException();
         }
 
-        return isAllowed(subject, object, action);
+        return isAllowed(subject, resource, action);
     }
 
     @Override
-    public boolean isAllowed(S subject, O object, String action) throws PermissionException {
+    public boolean isAllowed(S subject, R resource, String action) throws PermissionException {
         Permission permission;
 
-        if (object == null) {
+        if (resource == null) {
             logger.debug(LOG_KEY_RESOLVING_GLOBAL_PERM, subject);
 
             permission = permissionResolver.getGlobalPermission(subject);
         } else {
-            logger.debug(LOG_KEY_RESOLVING_PERM, subject, object);
+            logger.debug(LOG_KEY_RESOLVING_PERM, subject, resource);
 
-            permission = permissionResolver.getPermission(subject, object);
+            permission = permissionResolver.getPermission(subject, resource);
         }
 
         if (permission != null) {
-            logger.debug(LOG_KEY_EVALUATING_PERM, action, subject, object, permission);
+            logger.debug(LOG_KEY_EVALUATING_PERM, action, subject, resource, permission);
 
             return permission.isAllowed(action);
         } else {
